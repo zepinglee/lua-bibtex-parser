@@ -1,0 +1,54 @@
+[
+    {
+        "key": "123!\"#$%&'()*+-./:;<=>?@[\\]^_`{|}~",
+        "type": "!$&*+-./:;<>?@[\\]^_`|~",
+        "fields": {}
+    },
+    {
+        "key": "key)(}{",
+        "type": "book",
+        "fields": {
+            "note": "Valid entry key."
+        }
+    },
+    {
+        "key": "key)({",
+        "type": "book",
+        "fields": {
+            "note": "Valid entry key with unmatched brace."
+        }
+    },
+    {
+        "key": "key)(",
+        "type": "book",
+        "fields": {}
+    },
+    {
+        "key": "test-comment-1",
+        "type": "book",
+        "fields": {
+            "note": "The entry type is \"book\"."
+        }
+    },
+    {
+        "key": "test-comment-2",
+        "type": "comment@book",
+        "fields": {
+            "note": "The entry type is \"comment@book\"."
+        }
+    },
+    {
+        "key": "test-string-1",
+        "type": "book",
+        "fields": {
+            "title": "foo \\{ bar}, publisher = {foo \\} bar"
+        }
+    },
+    {
+        "key": "test-string-2",
+        "type": "book",
+        "fields": {
+            "title": "foo {\", publisher = \"} bar"
+        }
+    }
+]
