@@ -2,7 +2,16 @@
 
 
 Previously I wrote a BibTeX parser for <https://github.com/zepinglee/citeproc-lua>
-and I'm planning to make it a standalone project here.
+and I'm planning to make it a standalone project here. This parser is aimed
+at matching the original BibTeX's syntax.
+
+
+## Improvements (TODO)
+
+- Fault-tolerant: Able to parse files with syntax errors
+- Exporting matching the original
+- Easily modifying
+- Formatting options for writing
 
 
 ## BibTeX grammar
