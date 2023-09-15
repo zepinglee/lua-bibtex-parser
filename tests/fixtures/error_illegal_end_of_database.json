@@ -1,0 +1,17 @@
+{
+    "preamble": "",
+    "entries": [
+        {
+            "key": ")",
+            "type": "book",
+            "fields": {}
+        }
+    ],
+    "exceptions": [
+        {
+            "level": "error",
+            "message": "Illegal end of database file",
+            "line": 3
+        }
+    ]
+}

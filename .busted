@@ -1,0 +1,7 @@
+return {
+  _all = {
+    ROOT = {"tests"},
+    pattern = {"_test"},
+    recursive = "off",
+  },
+}

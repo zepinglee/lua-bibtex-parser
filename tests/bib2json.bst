@@ -5,11 +5,11 @@
 %
 % 1. It only handles fields and entry types already defined in the .bst script.
 % 2. BibTeX breaks long lines into multiple ones in the `.bbl` output but it
-%    doesn't work with JSON strings. This can be fixed via
-%    `python3 fix-bbl-json.py data.bbl`.
+%    doesn't work with JSON strings. This can be fixed with regex substitution
+%    `re.sub(r'\s*\n\s*', ' ', ...)`.
 
 
-% The fields are collected from standard data models of BiBTeX and biblatex.
+% The fields are collected from standard data models of BibTeX and biblatex.
 ENTRY {
   abstract
   addendum
@@ -159,6 +159,9 @@ ENTRY {
   xdata
   xref
   year
+
+  % Additional fields for testing
+  !$&*+-./456:;<>?@FLD[\]^_`fld|~
 } {} {}
 
 
@@ -203,7 +206,7 @@ FUNCTION {format.field}
       if$
       newline$
       escape.json
-      "            " quote$ * field * quote$ * ": " * quote$ * swap$ * quote$ * write$
+      "        " quote$ * field escape.json * quote$ * ": " * quote$ * swap$ * quote$ * write$
     }
   if$
 }
@@ -229,42 +232,44 @@ FUNCTION {format.name.part}
 }
 
 
-FUNCTION {format.name.field}
-{ 'field :=
-  duplicate$ missing$
-    'pop$
-    { field.index #1 + 'field.index :=
-      field.index #1 >
-        { "," write$ newline$ }
-        'skip$
-      if$
-      'name :=
-      "            " quote$ * field * quote$ * ": [" * write$
-      #1 'name.index :=
-      name num.names$ 'num.names :=
-        { name.index num.names #1 + < }
-        { name.index #1 >
-            { "," write$ }
-            'skip$
-          if$
-          newline$
-          #0 'name.part.index :=
-          "                {" write$
-          name name.index "{vv}" format.name$ "von" format.name.part
-          name name.index "{ll}" format.name$ "last" format.name.part
-          name name.index "{ff}" format.name$ "first" format.name.part
-          name name.index "{jj}" format.name$ "jr" format.name.part
-          newline$
-          "                }" write$
-          name.index #1 + 'name.index :=
-        }
-      while$
-      newline$
-      "            ]" write$
-    }
-  if$
-}
+% FUNCTION {format.name.field}
+% { 'field :=
+%   duplicate$ missing$
+%     'pop$
+%     { field.index #1 + 'field.index :=
+%       field.index #1 >
+%         { "," write$ newline$ }
+%         'skip$
+%       if$
+%       'name :=
+%       "            " quote$ * field * quote$ * ": [" * write$
+%       #1 'name.index :=
+%       name num.names$ 'num.names :=
+%         { name.index num.names #1 + < }
+%         { name.index #1 >
+%             { "," write$ }
+%             'skip$
+%           if$
+%           newline$
+%           #0 'name.part.index :=
+%           "                {" write$
+%           name name.index "{vv}" format.name$ "von" format.name.part
+%           name name.index "{ll}" format.name$ "last" format.name.part
+%           name name.index "{ff}" format.name$ "first" format.name.part
+%           name name.index "{jj}" format.name$ "jr" format.name.part
+%           newline$
+%           "                }" write$
+%           name.index #1 + 'name.index :=
+%         }
+%       while$
+%       newline$
+%       "            ]" write$
+%     }
+%   if$
+% }
 
+FUNCTION {format.name.field}
+{format.field}
 
 FUNCTION {format.fields}
 { abstract "abstract" format.field
@@ -415,6 +420,8 @@ FUNCTION {format.fields}
   xdata "xdata" format.field
   xref "xref" format.field
   year "year" format.field
+
+  !$&*+-./456:;<>?@FLD[\]^_`fld|~ "!$&*+-./456:;<>?@FLD[\]^_`fld|~" format.field
 }
 
 
@@ -427,16 +434,14 @@ FUNCTION {convert.to.json}
   newline$
   "    {" write$
   newline$
-  "        " quote$ * "key" * quote$ * ": " * quote$ * cite$ escape.json * quote$ * "," * write$ newline$
-  "        " quote$ * "type" * quote$ * ": " * quote$ * type$ escape.json * quote$ * "," * write$ newline$
-  "        " quote$ * "fields" * quote$ * ": " * "{" * write$
+  "      " quote$ * "key" * quote$ * ": " * quote$ * cite$ escape.json * quote$ * "," * write$ newline$
+  "      " quote$ * "type" * quote$ * ": " * quote$ * type$ escape.json * quote$ * "," * write$ newline$
+  "      " quote$ * "fields" * quote$ * ": " * "{" * write$
   #0 'field.index :=
   format.fields
-  cite$ top$
-  field.index top$
   field.index #0 >
     { newline$
-      "        " write$
+      "      " write$
     }
     'skip$
   if$
@@ -506,8 +511,9 @@ FUNCTION {unpublished} {convert.to.json}
 FUNCTION {video} {convert.to.json}
 FUNCTION {www} {convert.to.json}
 
+% Additional entry types for testing
+FUNCTION {!$&*+-./123:;<>?@TYP[\]^_`typ|~} {convert.to.json}
 FUNCTION {comment@book} {convert.to.json}
-FUNCTION {!$&*+-./:;<>?@[\]^_`|~} {convert.to.json}
 
 FUNCTION {default.type} {convert.to.json}
 
@@ -542,7 +548,11 @@ READ
 
 
 FUNCTION { start }
-{ "[" write$
+{ "{" write$
+  newline$
+  "  " quote$ * "preamble" * quote$ * ": " * quote$ * preamble$ * quote$ * "," * write$
+  newline$
+  "  " quote$ * "entries" * quote$ * ": " * "[" * write$
   #0 'entry.index :=
 }
 
@@ -557,7 +567,9 @@ FUNCTION { end }
     'newline$
     'skip$
   if$
-  "]" write$
+  "  ]" write$
+  newline$
+  "}" write$
   newline$
 }
 

@@ -1,0 +1,20 @@
+{
+    "preamble": "",
+    "entries": [
+        {
+            "key": "ITEM-1",
+            "type": "book",
+            "fields": {
+                "note": "A valid entry"
+            }
+        },
+        {
+            "key": "ITEM-2",
+            "type": "comment@book",
+            "fields": {
+                "note": "The entry type is ``comment@book''"
+            }
+        }
+    ],
+    "exceptions": []
+}

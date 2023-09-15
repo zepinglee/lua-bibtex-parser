@@ -1,0 +1,11 @@
+{
+    "preamble": "",
+    "entries": [],
+    "exceptions": [
+        {
+            "level": "error",
+            "message": "You're missing a field part",
+            "line": 1
+        }
+    ]
+}

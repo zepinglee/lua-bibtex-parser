@@ -1,0 +1,11 @@
+{
+    "preamble": "",
+    "entries": [],
+    "exceptions": [
+        {
+            "level": "error",
+            "message": "I was expecting a `{' or a `('",
+            "line": 1
+        }
+    ]
+}

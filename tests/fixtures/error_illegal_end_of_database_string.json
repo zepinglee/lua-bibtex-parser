@@ -1,0 +1,11 @@
+{
+    "preamble": "",
+    "entries": [],
+    "exceptions": [
+        {
+            "level": "error",
+            "message": "Illegal end of database file",
+            "line": 1
+        }
+    ]
+}

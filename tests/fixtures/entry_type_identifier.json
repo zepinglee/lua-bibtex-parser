@@ -1,0 +1,13 @@
+{
+    "preamble": "",
+    "entries": [
+        {
+            "key": "ITEM-1",
+            "type": "!$&*+-./123:;<>?@typ[\\]^_`typ|~",
+            "fields": {
+                "title": "Foo"
+            }
+        }
+    ],
+    "exceptions": []
+}

@@ -1,0 +1,13 @@
+{
+    "preamble": "",
+    "entries": [
+        {
+            "key": "ITEM-1",
+            "type": "book",
+            "fields": {
+                "title": "foo \\{ bar}, publisher = {foo \\} bar"
+            }
+        }
+    ],
+    "exceptions": []
+}

@@ -1,0 +1,11 @@
+{
+    "preamble": "foo",
+    "entries": [],
+    "exceptions": [
+        {
+            "level": "error",
+            "message": "Missing \"}\" in preamble command",
+            "line": 3
+        }
+    ]
+}

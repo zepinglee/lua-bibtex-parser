@@ -1,0 +1,13 @@
+{
+    "preamble": "",
+    "entries": [
+        {
+            "key": "inbook-full",
+            "type": "inbook",
+            "fields": {
+                "date": "10~January"
+            }
+        }
+    ],
+    "exceptions": []
+}

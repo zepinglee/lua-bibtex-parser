@@ -1,0 +1,20 @@
+{
+    "preamble": "",
+    "entries": [
+        {
+            "key": "!\"#$%&'()*+-./123:;<=>?@ABC[\\]^_`abc{|~",
+            "type": "book",
+            "fields": {
+                "note": "Valid entry key"
+            }
+        },
+        {
+            "key": "!\"#$%&')(*+-./123:;<=>?@ABC[\\]^_`abc{|}~",
+            "type": "book",
+            "fields": {
+                "note": "Valid entry key"
+            }
+        }
+    ],
+    "exceptions": []
+}
